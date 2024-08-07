@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <style>
+    .profile-link {
+      float: right;
+      margin: 15px;
+    }
+    .profile-photo {
+      max-width: 100px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>User Dashboard</h2>
+      <!-- Profile link -->
+      <a href="#" class="btn btn-default profile-link" data-toggle="modal" data-target="#profileModal">
+        <span class="glyphicon glyphicon-user"></span> Profile
+      </a>
+      <br><br>
+      <p>Welcome, {{ user.name }}!</p>
+
+      <!-- Profile Modal -->
+      <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="profileModalLabel">Profile Information</h4>
+            </div>
+            <div class="modal-body">
+              {% if user.profile_photo %}
+                <p><b>Profile Photo:</b></p>
+                <!-- Lightbox link -->
+                <a href="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" data-lightbox="profile" data-title="Profile Photo">
+                  <img src="{{ url_for('static', filename='uploads/' + user.profile_photo) }}" alt="Profile Photo" class="profile-photo">
+                </a>
+              {% endif %}
+              <p><b>Name: </b>{{ user.name }}</p>
+              <p><b>Email: </b>{{ user.email }}</p>
+              <p><b>Password: </b>{{ user.password }}</p>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
